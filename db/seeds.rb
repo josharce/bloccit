@@ -22,6 +22,10 @@ require 'random_data'
      body: RandomData.random_paragraph
    )
  end
+
+ unique_post = Post.find_or_create_by!(title: "Hello World!", body: "Here's my post!")
+
+ Comment.find_or_create_by!(post: unique_post, body: "Here's my comment!")
  
  puts "Seed finished"
  puts "#{Post.count} posts created"
