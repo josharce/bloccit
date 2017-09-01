@@ -43,8 +43,7 @@ RSpec.describe PostsController, type: :controller do
       get :new
       expect(response).to render_template :new
     end
-
-# #3
+    
     it "instantiates @post" do
       get :new
       expect(assigns(:post)).not_to be_nil
