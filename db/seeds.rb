@@ -45,17 +45,17 @@ posts = Post.all
   )
 end
 
-admin = User.create!(
-  name:     'Josh Arce',
-  email:    'josh.arce@icloud.com',
-  password: 'bebedk12',
-  role:     'admin'
-)
-
 member = User.create!(
   name:     'Member User',
   email:    'member@example.com',
   password: 'bebedk12'
+)
+
+admin = User.create!(
+  name:     'Josh Arce',
+  email:    'josh.arce@outlook.com',
+  password: 'bebedk12',
+  role:     'admin'
 )
 
 puts "Seed finished"
