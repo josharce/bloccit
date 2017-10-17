@@ -1,4 +1,5 @@
 require 'rails_helper'
+include SessionsHelper
 
 RSpec.describe UsersController, type: :controller do
   let(:new_user_attributes) do
@@ -59,9 +60,13 @@ RSpec.describe UsersController, type: :controller do
       expect(session[:user_id]).to eq assigns(:user).id
     end
   end
-
-  describe "not signed in" do
+  
+  describe "GET show" do
+    let(:my_topic) { create(:topic) }
     let(:factory_user) { create(:user) }
+    let(:another_user) { create(:user) }
+    let(:another_users_post) { create(:post, topic: my_topic, user: another_user) }
+    let(:my_user) { User.create!(name: "Bloccit User", email: "my_user2@bloccit.com", password: "helloworld", role: :member) }
 
     before do
       post :create, params: {user: new_user_attributes}
@@ -80,6 +85,11 @@ RSpec.describe UsersController, type: :controller do
     it "assigns factory_user to @user" do
       get :show, params: {id: factory_user.id}
       expect(assigns(:user)).to eq(factory_user)
+    end
+
+    it "returns all favorited posts from user" do
+      my_user.favorites.where(post: another_users_post).create
+      expect(my_user.favorites.length).to eq 1
     end
   end
 end
